@@ -9,7 +9,6 @@ import {
   Sun, 
   Moon, 
   Flame, 
-  Zap, 
   LogOut, 
   User as UserIcon, 
   Menu, 
@@ -48,44 +47,46 @@ export function Navbar() {
       borderBottom: '1px solid var(--border-subtle)',
       transition: 'all var(--trans-normal)'
     }}>
-      <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '72px' }}>
+      <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '76px' }}>
         
-        {/* Brand Logo */}
-        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        {/* Brand Logo (MasterClass Editorial Crest) */}
+        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <div style={{
-            width: '38px',
-            height: '38px',
-            borderRadius: '10px',
-            background: 'var(--grad-brand)',
+            width: '36px',
+            height: '36px',
+            borderRadius: '8px',
+            background: 'var(--bg-tertiary)',
+            border: '1px solid var(--border-accent)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            boxShadow: '0 0 16px rgba(99, 102, 241, 0.4)'
+            color: 'var(--accent-bronze)'
           }}>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-            </svg>
+            <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.4rem', fontWeight: 700, fontStyle: 'italic', lineHeight: 1 }}>
+              L
+            </span>
           </div>
           <div>
             <span style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: '1.35rem',
+              fontFamily: 'var(--font-sans)',
+              fontSize: '1.25rem',
               fontWeight: 800,
-              letterSpacing: '-0.03em',
+              letterSpacing: '0.08em',
               color: 'var(--text-primary)'
             }}>
-              LEARN<span style={{ color: 'var(--accent-cyan)' }}>OVA</span>
+              LEARNOVA
             </span>
             <span style={{
               display: 'block',
               fontSize: '0.625rem',
-              fontWeight: 700,
-              letterSpacing: '0.12em',
-              color: 'var(--accent-indigo)',
+              fontWeight: 600,
+              letterSpacing: '0.2em',
+              color: 'var(--accent-bronze)',
               textTransform: 'uppercase',
-              lineHeight: 1
+              lineHeight: 1,
+              marginTop: '2px'
             }}>
-              Quantum Academy
+              The Master Series
             </span>
           </div>
         </Link>
@@ -94,19 +95,19 @@ export function Navbar() {
         <form onSubmit={handleSearchSubmit} style={{
           display: 'none',
           position: 'relative',
-          width: '320px',
+          width: '300px',
           alignItems: 'center'
         }} className="desktop-search">
-          <Search size={16} style={{ position: 'absolute', left: '12px', color: 'var(--text-muted)' }} />
+          <Search size={15} style={{ position: 'absolute', left: '14px', color: 'var(--text-muted)' }} />
           <input
             type="text"
-            placeholder="Search AI, Distributed, React 19..."
+            placeholder="Search masterclasses..."
             value={navSearch}
             onChange={(e) => setNavSearch(e.target.value)}
             style={{
               width: '100%',
-              padding: '8px 12px 8px 36px',
-              fontSize: '0.875rem',
+              padding: '8px 14px 8px 36px',
+              fontSize: '0.85rem',
               borderRadius: 'var(--radius-full)',
               background: 'var(--bg-secondary)',
               border: '1px solid var(--border-subtle)',
@@ -118,54 +119,54 @@ export function Navbar() {
         </form>
 
         {/* Desktop Navigation Links */}
-        <nav style={{ display: 'none', alignItems: 'center', gap: '24px' }} className="desktop-nav">
+        <nav style={{ display: 'none', alignItems: 'center', gap: '28px' }} className="desktop-nav">
           <Link
             to="/courses"
             style={{
-              fontSize: '0.925rem',
+              fontSize: '0.9rem',
               fontWeight: 600,
-              color: isActive('/courses') ? 'var(--accent-cyan)' : 'var(--text-secondary)',
+              color: isActive('/courses') ? 'var(--accent-bronze)' : 'var(--text-secondary)',
+              letterSpacing: '0.02em',
               display: 'flex',
               alignItems: 'center',
               gap: '6px',
               transition: 'color var(--trans-fast)'
             }}
           >
-            <Compass size={16} />
-            Explore Courses
+            <Compass size={15} />
+            Explore Library
           </Link>
 
           <Link
             to="/dashboard"
             style={{
-              fontSize: '0.925rem',
+              fontSize: '0.9rem',
               fontWeight: 600,
-              color: isActive('/dashboard') ? 'var(--accent-cyan)' : 'var(--text-secondary)',
+              color: isActive('/dashboard') ? 'var(--accent-bronze)' : 'var(--text-secondary)',
+              letterSpacing: '0.02em',
               display: 'flex',
               alignItems: 'center',
               gap: '6px',
               transition: 'color var(--trans-fast)'
             }}
           >
-            <LayoutDashboard size={16} />
-            Dashboard
+            <LayoutDashboard size={15} />
+            My Dashboard
           </Link>
         </nav>
 
-        {/* Right Actions: Theme Toggle + User Info */}
+        {/* Right Controls: Theme Toggle + User Info */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           
-          {/* Theme Toggle Button */}
           <button
             onClick={toggleTheme}
             className="btn-icon"
             title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
             aria-label="Toggle Theme"
           >
-            {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+            {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
           </button>
 
-          {/* User Controls */}
           {isAuthenticated ? (
             <div style={{ position: 'relative' }}>
               <button
@@ -194,20 +195,19 @@ export function Navbar() {
                   display: 'flex',
                   alignItems: 'center',
                   gap: '3px',
-                  fontSize: '0.75rem',
+                  fontSize: '0.725rem',
                   fontWeight: 700,
-                  color: 'var(--accent-amber)',
-                  background: 'rgba(245, 158, 11, 0.12)',
+                  color: 'var(--accent-bronze)',
+                  background: 'var(--accent-bronze-subtle)',
                   padding: '2px 6px',
                   borderRadius: '10px'
                 }}>
-                  <Flame size={12} fill="#f59e0b" />
+                  <Flame size={11} fill="#c5a059" />
                   {user.streak}d
                 </span>
-                <ChevronDown size={14} style={{ color: 'var(--text-muted)' }} />
+                <ChevronDown size={13} style={{ color: 'var(--text-muted)' }} />
               </button>
 
-              {/* User Dropdown Menu */}
               {userDropdownOpen && (
                 <div style={{
                   position: 'absolute',
@@ -224,17 +224,6 @@ export function Navbar() {
                   <div style={{ padding: '8px 10px', borderBottom: '1px solid var(--border-subtle)', marginBottom: '6px' }}>
                     <div style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--text-primary)' }}>{user.name}</div>
                     <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{user.email}</div>
-                    <div style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '4px',
-                      fontSize: '0.7rem',
-                      fontWeight: 700,
-                      color: 'var(--accent-cyan)',
-                      marginTop: '4px'
-                    }}>
-                      <Zap size={11} /> {user.xp} XP
-                    </div>
                   </div>
 
                   <Link
@@ -266,7 +255,7 @@ export function Navbar() {
                       color: 'var(--text-secondary)'
                     }}
                   >
-                    <LayoutDashboard size={15} /> My Learning Portal
+                    <LayoutDashboard size={15} /> Learning Dashboard
                   </Link>
 
                   <button
@@ -332,7 +321,7 @@ export function Navbar() {
               <Search size={16} style={{ position: 'absolute', left: '12px', top: '11px', color: 'var(--text-muted)' }} />
               <input
                 type="text"
-                placeholder="Search courses..."
+                placeholder="Search masterclasses..."
                 value={navSearch}
                 onChange={(e) => setNavSearch(e.target.value)}
                 className="input"
@@ -344,47 +333,26 @@ export function Navbar() {
           <Link
             to="/courses"
             onClick={() => setMobileMenuOpen(false)}
-            style={{
-              padding: '8px 0',
-              fontWeight: 600,
-              color: 'var(--text-primary)',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px'
-            }}
+            style={{ padding: '8px 0', fontWeight: 600, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '8px' }}
           >
-            <Compass size={18} /> Explore Courses
+            <Compass size={17} /> Explore Library
           </Link>
 
           <Link
             to="/dashboard"
             onClick={() => setMobileMenuOpen(false)}
-            style={{
-              padding: '8px 0',
-              fontWeight: 600,
-              color: 'var(--text-primary)',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px'
-            }}
+            style={{ padding: '8px 0', fontWeight: 600, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '8px' }}
           >
-            <LayoutDashboard size={18} /> Student Dashboard
+            <LayoutDashboard size={17} /> Learning Dashboard
           </Link>
 
           {isAuthenticated ? (
             <Link
               to="/profile"
               onClick={() => setMobileMenuOpen(false)}
-              style={{
-                padding: '8px 0',
-                fontWeight: 600,
-                color: 'var(--text-primary)',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px'
-              }}
+              style={{ padding: '8px 0', fontWeight: 600, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '8px' }}
             >
-              <UserIcon size={18} /> My Profile ({user.name})
+              <UserIcon size={17} /> My Profile ({user.name})
             </Link>
           ) : (
             <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
@@ -392,14 +360,13 @@ export function Navbar() {
                 Sign In
               </Link>
               <Link to="/register" onClick={() => setMobileMenuOpen(false)} className="btn btn-primary" style={{ flex: 1 }}>
-                Register
+                Enroll Free
               </Link>
             </div>
           )}
         </div>
       )}
 
-      {/* Style for responsive displays */}
       <style>{`
         @media (min-width: 860px) {
           .desktop-search { display: flex !important; }

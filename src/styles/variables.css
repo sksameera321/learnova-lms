@@ -1,92 +1,98 @@
 :root {
-  /* Brand Typography */
+  /* Editorial Typography */
+  --font-display: 'Cormorant Garamond', Garamond, 'Times New Roman', Georgia, serif;
   --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
-  /* Quantum Palette - Dark Theme Default */
-  --bg-primary: #07090e;
-  --bg-secondary: #0d121d;
-  --bg-tertiary: #131a29;
-  --bg-card: rgba(19, 26, 41, 0.75);
-  --bg-card-hover: rgba(27, 36, 56, 0.85);
-  --bg-glass: rgba(13, 18, 29, 0.8);
-  --bg-elevated: #1a2236;
+  /* MasterClass Cinematic Palette - Deep Charcoal & Warm Bronze */
+  --bg-primary: #0b0b0e;
+  --bg-secondary: #131317;
+  --bg-tertiary: #1a1a20;
+  --bg-card: rgba(19, 19, 23, 0.85);
+  --bg-card-hover: rgba(28, 28, 34, 0.95);
+  --bg-glass: rgba(11, 11, 14, 0.85);
+  --bg-elevated: #1f1f26;
 
-  /* Text Hierarchy */
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
-  --text-inverse: #07090e;
+  /* Editorial Text Hierarchy */
+  --text-primary: #f8f6f0;
+  --text-secondary: #bab7ad;
+  --text-muted: #78756d;
+  --text-inverse: #0b0b0e;
 
-  /* Brand Accents */
-  --accent-cyan: #38bdf8;
-  --accent-cyan-glow: rgba(56, 189, 248, 0.25);
-  --accent-indigo: #6366f1;
-  --accent-indigo-glow: rgba(99, 102, 241, 0.3);
-  --accent-purple: #a855f7;
-  --accent-emerald: #10b981;
-  --accent-amber: #f59e0b;
-  --accent-rose: #f43f5e;
+  /* MasterClass Warm Bronze & Champagne Accents */
+  --accent-bronze: #c5a059;
+  --accent-bronze-light: #dfc182;
+  --accent-bronze-hover: #d4af66;
+  --accent-bronze-glow: rgba(197, 160, 89, 0.25);
+  --accent-bronze-subtle: rgba(197, 160, 89, 0.12);
 
-  /* Gradients */
-  --grad-brand: linear-gradient(135deg, #38bdf8 0%, #6366f1 50%, #a855f7 100%);
-  --grad-surface: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
-  --grad-glow: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+  --accent-emerald: #2fa87a;
+  --accent-emerald-subtle: rgba(47, 168, 122, 0.15);
+  --accent-amber: #d4973b;
+  --accent-rose: #d9534f;
 
-  /* Borders & Dividers */
+  /* Refined Gradients (Subtle & Editorial, Never Neon) */
+  --grad-bronze: linear-gradient(135deg, #dfc182 0%, #c5a059 50%, #9e7b34 100%);
+  --grad-surface: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0) 100%);
+  --grad-vignette: radial-gradient(circle at 50% 30%, rgba(197, 160, 89, 0.08) 0%, transparent 70%);
+
+  /* Borders & Rules */
   --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-medium: rgba(255, 255, 255, 0.14);
-  --border-accent: rgba(99, 102, 241, 0.4);
+  --border-medium: rgba(255, 255, 255, 0.15);
+  --border-accent: rgba(197, 160, 89, 0.4);
 
-  /* Shadows & Depth */
-  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.45);
-  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.6);
-  --shadow-glow: 0 0 25px rgba(99, 102, 241, 0.35);
+  /* Shadows */
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.75);
+  --shadow-bronze: 0 0 30px rgba(197, 160, 89, 0.2);
 
-  /* Skeuomorphic & Tactile Details */
-  --skeuo-bevel-light: inset 0 1px 0 rgba(255, 255, 255, 0.15);
-  --skeuo-btn-shadow: 0 3px 0 #312e81, 0 8px 16px rgba(99, 102, 241, 0.35);
-  --skeuo-debossed: inset 0 2px 4px rgba(0, 0, 0, 0.4), 0 1px 0 rgba(255, 255, 255, 0.05);
+  /* Tactile Physical Details */
+  --skeuo-btn-bronze: 0 3px 0 #7a5e24, 0 8px 18px rgba(0, 0, 0, 0.5);
+  --skeuo-debossed: inset 0 2px 4px rgba(0, 0, 0, 0.5), 0 1px 0 rgba(255, 255, 255, 0.04);
 
   /* Radii */
-  --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 20px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
   --radius-full: 9999px;
 
   /* Transitions */
-  --trans-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-  --trans-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  --trans-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --trans-fast: 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+  --trans-normal: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  --trans-smooth: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Light Theme Overrides */
+/* Light Mode Overrides (Warm Editorial Linen / Gallery) */
 [data-theme="light"] {
-  --bg-primary: #f8fafc;
-  --bg-secondary: #f1f5f9;
-  --bg-tertiary: #e2e8f0;
-  --bg-card: rgba(255, 255, 255, 0.9);
-  --bg-card-hover: rgba(255, 255, 255, 1);
-  --bg-glass: rgba(255, 255, 255, 0.85);
+  --bg-primary: #f9f8f5;
+  --bg-secondary: #f0eee8;
+  --bg-tertiary: #e6e3da;
+  --bg-card: rgba(255, 255, 255, 0.95);
+  --bg-card-hover: #ffffff;
+  --bg-glass: rgba(249, 248, 245, 0.9);
   --bg-elevated: #ffffff;
 
-  --text-primary: #0f172a;
-  --text-secondary: #475569;
-  --text-muted: #64748b;
+  --text-primary: #181715;
+  --text-secondary: #5c5952;
+  --text-muted: #8c887e;
   --text-inverse: #ffffff;
 
-  --border-subtle: rgba(15, 23, 42, 0.08);
-  --border-medium: rgba(15, 23, 42, 0.14);
-  --border-accent: rgba(99, 102, 241, 0.3);
+  --border-subtle: rgba(24, 23, 21, 0.08);
+  --border-medium: rgba(24, 23, 21, 0.15);
+  --border-accent: rgba(168, 126, 42, 0.45);
 
-  --shadow-sm: 0 2px 4px rgba(15, 23, 42, 0.05);
-  --shadow-md: 0 6px 18px rgba(15, 23, 42, 0.08);
-  --shadow-lg: 0 12px 36px rgba(15, 23, 42, 0.12);
-  --shadow-glow: 0 0 25px rgba(99, 102, 241, 0.18);
+  --accent-bronze: #9c7526;
+  --accent-bronze-light: #b8913b;
+  --accent-bronze-hover: #805e19;
+  --accent-bronze-glow: rgba(156, 117, 38, 0.15);
+  --accent-bronze-subtle: rgba(156, 117, 38, 0.08);
 
-  --skeuo-bevel-light: inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  --skeuo-btn-shadow: 0 3px 0 #3730a3, 0 8px 16px rgba(99, 102, 241, 0.2);
-  --skeuo-debossed: inset 0 2px 4px rgba(15, 23, 42, 0.08), 0 1px 0 rgba(255, 255, 255, 0.9);
+  --shadow-sm: 0 2px 6px rgba(24, 23, 21, 0.05);
+  --shadow-md: 0 6px 20px rgba(24, 23, 21, 0.08);
+  --shadow-lg: 0 16px 40px rgba(24, 23, 21, 0.12);
+  --shadow-bronze: 0 0 25px rgba(156, 117, 38, 0.12);
+
+  --skeuo-btn-bronze: 0 3px 0 #6e5218, 0 6px 14px rgba(156, 117, 38, 0.25);
+  --skeuo-debossed: inset 0 2px 4px rgba(24, 23, 21, 0.06), 0 1px 0 rgba(255, 255, 255, 0.85);
 }

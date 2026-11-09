@@ -7,7 +7,7 @@ import { CourseCard } from '../components/course/CourseCard';
 export function CoursesPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const initialQuery = searchParams.get('q') || '';
-  const initialCategory = searchParams.get('category') || 'All Categories';
+  const initialCategory = searchParams.get('category') || 'All Disciplines';
 
   const [searchTerm, setSearchTerm] = useState(initialQuery);
   const [selectedCategory, setSelectedCategory] = useState(initialCategory);
@@ -31,7 +31,7 @@ export function CoursesPage() {
         course.instructor.name.toLowerCase().includes(searchTerm.toLowerCase());
 
       // Category filter
-      const matchesCategory = selectedCategory === 'All Categories' || course.category === selectedCategory;
+      const matchesCategory = selectedCategory === 'All Disciplines' || course.category === selectedCategory;
 
       // Difficulty filter
       const matchesDifficulty = selectedDifficulty === 'All Levels' || course.difficulty === selectedDifficulty;
@@ -47,27 +47,26 @@ export function CoursesPage() {
 
   const handleResetFilters = () => {
     setSearchTerm('');
-    setSelectedCategory('All Categories');
+    setSelectedCategory('All Disciplines');
     setSelectedDifficulty('All Levels');
     setSortBy('popular');
     setSearchParams({});
   };
 
   return (
-    <div className="section animate-fade-in" style={{ paddingTop: '3.5rem' }}>
+    <div className="section animate-fade-in" style={{ paddingTop: '4rem' }}>
       <div className="container">
         
         {/* Header Breadcrumb & Title */}
-        <div style={{ marginBottom: '2.5rem' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '0.85rem', color: 'var(--accent-cyan)', fontWeight: 600, marginBottom: '0.5rem' }}>
-            <BookOpen size={15} />
-            <span>LEARNOVA COURSE CATALOGUE</span>
+        <div style={{ marginBottom: '3rem' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '0.8rem', color: 'var(--accent-bronze)', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
+            <span>THE MASTERCLASS LIBRARY</span>
           </div>
-          <h1 style={{ fontSize: 'clamp(2rem, 4vw, 2.75rem)', fontWeight: 800, marginBottom: '0.5rem' }}>
-            Deep Engineering Curriculum
+          <h1 style={{ fontSize: 'clamp(2.2rem, 4vw, 3.2rem)', fontWeight: 600, marginBottom: '0.6rem' }}>
+            Curriculum of Masterclasses
           </h1>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', maxWidth: '680px' }}>
-            Filter by discipline, difficulty level, or search directly for specific protocols, tools, and design frameworks.
+          <p style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', maxWidth: '640px' }}>
+            Explore in-depth video masterclasses taught by senior industry architects across computing disciplines.
           </p>
         </div>
 
@@ -76,25 +75,22 @@ export function CoursesPage() {
           backgroundColor: 'var(--bg-secondary)',
           border: '1px solid var(--border-subtle)',
           borderRadius: 'var(--radius-lg)',
-          padding: '1.5rem',
+          padding: '1.75rem',
           marginBottom: '2.5rem',
           display: 'flex',
           flexDirection: 'column',
-          gap: '1.25rem'
+          gap: '1.5rem'
         }}>
           
           {/* Top Row: Search Input + Sort Dropdown */}
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', alignItems: 'center', justifyContent: 'space-between' }}>
             
             {/* Search Input */}
-            <div style={{
-              flex: '1 1 320px',
-              position: 'relative'
-            }}>
-              <Search size={18} style={{ position: 'absolute', left: '14px', top: '12px', color: 'var(--text-muted)' }} />
+            <div style={{ flex: '1 1 320px', position: 'relative' }}>
+              <Search size={16} style={{ position: 'absolute', left: '14px', top: '13px', color: 'var(--text-muted)' }} />
               <input
                 type="text"
-                placeholder="Search courses by keyword, instructor, skill..."
+                placeholder="Search by topic, instructor, or technique..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="input"
@@ -104,7 +100,7 @@ export function CoursesPage() {
 
             {/* Sort Selector */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <SlidersHorizontal size={16} style={{ color: 'var(--text-muted)' }} />
+              <SlidersHorizontal size={15} style={{ color: 'var(--text-muted)' }} />
               <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: 600 }}>Sort By:</span>
               <select
                 value={sortBy}
@@ -121,7 +117,7 @@ export function CoursesPage() {
                   cursor: 'pointer'
                 }}
               >
-                <option value="popular">Most Popular</option>
+                <option value="popular">Most Enrolled</option>
                 <option value="rating">Highest Rated</option>
                 <option value="duration">Longest Duration</option>
               </select>
@@ -131,7 +127,7 @@ export function CoursesPage() {
 
           {/* Category Filter Pills */}
           <div>
-            <div style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '0.5rem' }}>
+            <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.6rem' }}>
               Discipline
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
@@ -147,9 +143,9 @@ export function CoursesPage() {
                     cursor: 'pointer',
                     transition: 'all var(--trans-fast)',
                     border: '1px solid',
-                    backgroundColor: selectedCategory === category ? 'var(--accent-indigo)' : 'var(--bg-tertiary)',
-                    borderColor: selectedCategory === category ? 'var(--accent-indigo)' : 'var(--border-subtle)',
-                    color: selectedCategory === category ? '#ffffff' : 'var(--text-secondary)'
+                    backgroundColor: selectedCategory === category ? 'var(--accent-bronze)' : 'var(--bg-tertiary)',
+                    borderColor: selectedCategory === category ? 'var(--accent-bronze)' : 'var(--border-subtle)',
+                    color: selectedCategory === category ? '#0b0b0e' : 'var(--text-secondary)'
                   }}
                 >
                   {category}
@@ -160,7 +156,7 @@ export function CoursesPage() {
 
           {/* Difficulty Filter Pills */}
           <div>
-            <div style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '0.5rem' }}>
+            <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.6rem' }}>
               Skill Level
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
@@ -176,9 +172,9 @@ export function CoursesPage() {
                     cursor: 'pointer',
                     transition: 'all var(--trans-fast)',
                     border: '1px solid',
-                    backgroundColor: selectedDifficulty === difficulty ? 'var(--accent-cyan)' : 'var(--bg-tertiary)',
-                    borderColor: selectedDifficulty === difficulty ? 'var(--accent-cyan)' : 'var(--border-subtle)',
-                    color: selectedDifficulty === difficulty ? '#07090e' : 'var(--text-secondary)'
+                    backgroundColor: selectedDifficulty === difficulty ? 'var(--accent-bronze)' : 'var(--bg-tertiary)',
+                    borderColor: selectedDifficulty === difficulty ? 'var(--accent-bronze)' : 'var(--border-subtle)',
+                    color: selectedDifficulty === difficulty ? '#0b0b0e' : 'var(--text-secondary)'
                   }}
                 >
                   {difficulty}
@@ -190,18 +186,18 @@ export function CoursesPage() {
         </div>
 
         {/* Results Metadata Summary */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.75rem', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
           <div>
-            Showing <strong style={{ color: 'var(--text-primary)' }}>{filteredCourses.length}</strong> {filteredCourses.length === 1 ? 'course' : 'courses'}
-            {selectedCategory !== 'All Categories' && <span> in <span style={{ color: 'var(--accent-cyan)' }}>{selectedCategory}</span></span>}
+            Showing <strong style={{ color: 'var(--text-primary)' }}>{filteredCourses.length}</strong> {filteredCourses.length === 1 ? 'masterclass' : 'masterclasses'}
+            {selectedCategory !== 'All Disciplines' && <span> in <span style={{ color: 'var(--accent-bronze)' }}>{selectedCategory}</span></span>}
           </div>
-          {(searchTerm || selectedCategory !== 'All Categories' || selectedDifficulty !== 'All Levels') && (
+          {(searchTerm || selectedCategory !== 'All Disciplines' || selectedDifficulty !== 'All Levels') && (
             <button
               onClick={handleResetFilters}
               style={{
                 background: 'transparent',
                 border: 'none',
-                color: 'var(--accent-rose)',
+                color: 'var(--accent-bronze)',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
@@ -221,7 +217,7 @@ export function CoursesPage() {
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))',
-            gap: '1.75rem'
+            gap: '2rem'
           }}>
             {filteredCourses.map(course => (
               <CourseCard key={course.id} course={course} />
@@ -235,18 +231,18 @@ export function CoursesPage() {
             borderRadius: 'var(--radius-lg)',
             padding: '4rem 2rem',
             textAlign: 'center',
-            maxWidth: '560px',
+            maxWidth: '540px',
             margin: '2rem auto'
           }}>
-            <BookOpen size={48} style={{ color: 'var(--text-muted)', marginBottom: '1rem' }} />
-            <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '0.5rem' }}>
-              No matching courses found
+            <BookOpen size={42} style={{ color: 'var(--text-muted)', marginBottom: '1rem' }} />
+            <h3 style={{ fontSize: '1.3rem', fontWeight: 600, marginBottom: '0.5rem' }}>
+              No masterclasses found
             </h3>
             <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '1.5rem' }}>
-              We couldn't find any courses matching "{searchTerm}". Try clearing your filters or exploring our other engineering disciplines.
+              We couldn't find any courses matching "{searchTerm}". Try clearing your filters or selecting a different discipline.
             </p>
             <button onClick={handleResetFilters} className="btn btn-primary">
-              <RotateCcw size={15} />
+              <RotateCcw size={14} />
               Reset All Filters
             </button>
           </div>

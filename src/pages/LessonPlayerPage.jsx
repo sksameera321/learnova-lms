@@ -3,10 +3,8 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { 
   Play, 
   Pause, 
-  RotateCcw, 
   Volume2, 
   VolumeX, 
-  Maximize2, 
   CheckCircle2, 
   ChevronLeft, 
   ChevronRight, 
@@ -40,7 +38,6 @@ export function LessonPlayerPage() {
   const course = COURSES.find(c => c.id === courseId);
   const videoRef = useRef(null);
 
-  // Find all lessons flattened
   const allLessons = course ? course.modules.flatMap(m => m.lessons) : [];
   const currentLessonIndex = allLessons.findIndex(l => l.id === lessonId);
   const currentLesson = allLessons[currentLessonIndex] || allLessons[0];
@@ -51,15 +48,13 @@ export function LessonPlayerPage() {
   const [isMuted, setIsMuted] = useState(false);
   const [playbackSpeed, setPlaybackSpeed] = useState(1);
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [activeTab, setActiveTab] = useState('notes'); // 'notes' or 'scratchpad'
+  const [activeTab, setActiveTab] = useState('notes');
   const [personalNotes, setPersonalNotes] = useState('');
   const [copiedCode, setCopiedCode] = useState(false);
 
-  // Sync last accessed lesson
   useEffect(() => {
     if (course && currentLesson) {
       setLastLesson(course.id, currentLesson.id);
-      // Load student's saved scratchpad notes for this lesson
       setPersonalNotes(getNote(course.id, currentLesson.id));
     }
   }, [course, currentLesson, setLastLesson, getNote]);
@@ -69,7 +64,7 @@ export function LessonPlayerPage() {
       <div className="section" style={{ textAlign: 'center', padding: '6rem 1rem' }}>
         <h2>Lesson Not Found</h2>
         <Link to="/courses" className="btn btn-primary" style={{ marginTop: '1.5rem' }}>
-          Back to Catalogue
+          Back to Library
         </Link>
       </div>
     );
@@ -133,7 +128,7 @@ export function LessonPlayerPage() {
     <div style={{
       display: 'flex',
       flexDirection: 'column',
-      minHeight: 'calc(100vh - 72px)',
+      minHeight: 'calc(100vh - 76px)',
       backgroundColor: 'var(--bg-primary)'
     }}>
       
@@ -142,18 +137,18 @@ export function LessonPlayerPage() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: '12px 20px',
+        padding: '12px 24px',
         backgroundColor: 'var(--bg-secondary)',
         borderBottom: '1px solid var(--border-subtle)',
         fontSize: '0.85rem'
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', overflow: 'hidden' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '14px', overflow: 'hidden' }}>
           <Link
             to={`/courses/${course.id}`}
             className="btn btn-secondary btn-sm"
-            style={{ padding: '6px 10px', display: 'flex', alignItems: 'center', gap: '4px' }}
+            style={{ padding: '6px 12px', display: 'flex', alignItems: 'center', gap: '4px' }}
           >
-            <ChevronLeft size={16} /> Course Overview
+            <ChevronLeft size={15} /> Overview
           </Link>
           <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
             <span style={{ color: 'var(--text-muted)' }}>{course.title}</span>
@@ -163,40 +158,38 @@ export function LessonPlayerPage() {
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          {/* Completion Status Toggle */}
           <button
             onClick={handleToggleComplete}
             className={`btn btn-sm ${isCompleted ? 'btn-secondary' : 'btn-primary'}`}
             style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
           >
-            <CheckCircle2 size={16} style={{ color: isCompleted ? 'var(--accent-emerald)' : '#ffffff' }} />
-            <span>{isCompleted ? 'Completed' : 'Mark as Complete'}</span>
+            <CheckCircle2 size={15} style={{ color: isCompleted ? 'var(--accent-emerald)' : '#0b0b0e' }} />
+            <span>{isCompleted ? 'Completed' : 'Mark Complete'}</span>
           </button>
 
-          {/* Sidebar Toggle */}
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
             className="btn-icon"
             title="Toggle Curriculum Sidebar"
           >
-            {sidebarOpen ? <X size={18} /> : <Menu size={18} />}
+            {sidebarOpen ? <X size={17} /> : <Menu size={17} />}
           </button>
         </div>
       </div>
 
-      {/* Main Classroom Workstation */}
+      {/* Main Theatre & Notes Layout */}
       <div style={{ display: 'flex', flex: 1, position: 'relative', overflow: 'hidden' }} className="classroom-layout">
         
         {/* Left: Theatre & Notes Content */}
         <div style={{
           flex: 1,
           overflowY: 'auto',
-          padding: '1.5rem',
+          padding: '2rem',
           maxWidth: sidebarOpen ? 'calc(100vw - 360px)' : '100%',
           transition: 'max-width var(--trans-normal)'
         }} className="video-main-column">
 
-          {/* Video Player Container */}
+          {/* 16:9 MasterClass Cinematic Theatre Frame */}
           <div style={{
             position: 'relative',
             width: '100%',
@@ -205,7 +198,8 @@ export function LessonPlayerPage() {
             overflow: 'hidden',
             boxShadow: 'var(--shadow-lg)',
             aspectRatio: '16 / 9',
-            marginBottom: '1.5rem'
+            marginBottom: '2rem',
+            border: '1px solid var(--border-subtle)'
           }}>
             <video
               ref={videoRef}
@@ -219,7 +213,7 @@ export function LessonPlayerPage() {
               }}
             />
 
-            {/* Custom Overlay Controls Bar */}
+            {/* Custom Overlay Controls */}
             <div style={{
               position: 'absolute',
               bottom: 0,
@@ -238,33 +232,32 @@ export function LessonPlayerPage() {
                   onClick={togglePlay}
                   style={{ background: 'transparent', border: 'none', color: '#ffffff', cursor: 'pointer', display: 'flex' }}
                 >
-                  {isPlaying ? <Pause size={22} /> : <Play size={22} fill="#ffffff" />}
+                  {isPlaying ? <Pause size={20} /> : <Play size={20} fill="#ffffff" />}
                 </button>
                 <button
                   onClick={toggleMute}
                   style={{ background: 'transparent', border: 'none', color: '#ffffff', cursor: 'pointer', display: 'flex' }}
                 >
-                  {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
+                  {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
                 </button>
                 <span style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.7)', fontFamily: 'var(--font-mono)' }}>
                   {currentLesson.duration}
                 </span>
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                {/* Speed Selector */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 {[1, 1.25, 1.5, 2].map(speed => (
                   <button
                     key={speed}
                     onClick={() => handleSpeedChange(speed)}
                     style={{
-                      background: playbackSpeed === speed ? 'var(--accent-indigo)' : 'rgba(255,255,255,0.15)',
+                      background: playbackSpeed === speed ? 'var(--accent-bronze)' : 'rgba(255,255,255,0.12)',
                       border: 'none',
-                      color: '#ffffff',
+                      color: playbackSpeed === speed ? '#0b0b0e' : '#ffffff',
                       padding: '2px 8px',
                       borderRadius: '4px',
                       fontSize: '0.75rem',
-                      fontWeight: 600,
+                      fontWeight: 700,
                       cursor: 'pointer'
                     }}
                   >
@@ -275,47 +268,46 @@ export function LessonPlayerPage() {
             </div>
           </div>
 
-          {/* Lesson Header & Next/Previous Navigation */}
+          {/* Lesson Header & Steppers */}
           <div style={{
             display: 'flex',
             flexWrap: 'wrap',
             justifyContent: 'space-between',
             alignItems: 'center',
             gap: '1rem',
-            marginBottom: '1.5rem',
-            paddingBottom: '1.25rem',
+            marginBottom: '2rem',
+            paddingBottom: '1.5rem',
             borderBottom: '1px solid var(--border-subtle)'
           }}>
             <div>
-              <span className="badge badge-brand" style={{ marginBottom: '0.4rem' }}>
-                {currentModule?.title.split(':')[0] || 'Lesson'}
-              </span>
-              <h1 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)' }}>
+              <div style={{ fontSize: '0.75rem', color: 'var(--accent-bronze)', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.35rem' }}>
+                {currentModule?.title}
+              </div>
+              <h1 style={{ fontSize: '1.75rem', fontWeight: 600, color: 'var(--text-primary)' }}>
                 {currentLesson.title}
               </h1>
             </div>
 
-            {/* Stepper Buttons */}
             <div style={{ display: 'flex', gap: '8px' }}>
               {prevLesson && (
                 <Link to={`/learn/${course.id}/${prevLesson.id}`} className="btn btn-secondary btn-sm">
-                  <ChevronLeft size={16} /> Previous
+                  <ChevronLeft size={15} /> Previous Lesson
                 </Link>
               )}
               {nextLesson ? (
                 <Link to={`/learn/${course.id}/${nextLesson.id}`} className="btn btn-primary btn-sm">
-                  Next Lesson <ChevronRight size={16} />
+                  Next Lesson <ChevronRight size={15} />
                 </Link>
               ) : (
-                <Link to={`/quiz/${course.id}`} className="btn btn-primary btn-sm" style={{ background: 'linear-gradient(135deg, #f59e0b, #d97706)' }}>
-                  Take Course Quiz <Award size={16} />
+                <Link to={`/quiz/${course.id}`} className="btn btn-primary btn-sm">
+                  Take Course Assessment <Award size={15} />
                 </Link>
               )}
             </div>
           </div>
 
-          {/* Interactive Dual Tabs: Lesson Notes vs Personal Scratchpad */}
-          <div style={{ marginBottom: '1.25rem', display: 'flex', gap: '10px', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '8px' }}>
+          {/* Dual Tabs: Lesson Notes vs Personal Scratchpad */}
+          <div style={{ marginBottom: '1.5rem', display: 'flex', gap: '14px', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '8px' }}>
             <button
               onClick={() => setActiveTab('notes')}
               style={{
@@ -323,16 +315,16 @@ export function LessonPlayerPage() {
                 border: 'none',
                 padding: '6px 14px',
                 fontSize: '0.9rem',
-                fontWeight: 700,
+                fontWeight: 600,
                 cursor: 'pointer',
-                color: activeTab === 'notes' ? 'var(--accent-cyan)' : 'var(--text-muted)',
-                borderBottom: activeTab === 'notes' ? '2px solid var(--accent-cyan)' : 'none',
+                color: activeTab === 'notes' ? 'var(--accent-bronze)' : 'var(--text-muted)',
+                borderBottom: activeTab === 'notes' ? '2px solid var(--accent-bronze)' : 'none',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '6px'
               }}
             >
-              <FileText size={16} /> Lesson Overview & Code
+              <FileText size={15} /> Lesson Overview & Blueprint
             </button>
             <button
               onClick={() => setActiveTab('scratchpad')}
@@ -341,53 +333,52 @@ export function LessonPlayerPage() {
                 border: 'none',
                 padding: '6px 14px',
                 fontSize: '0.9rem',
-                fontWeight: 700,
+                fontWeight: 600,
                 cursor: 'pointer',
-                color: activeTab === 'scratchpad' ? 'var(--accent-cyan)' : 'var(--text-muted)',
-                borderBottom: activeTab === 'scratchpad' ? '2px solid var(--accent-cyan)' : 'none',
+                color: activeTab === 'scratchpad' ? 'var(--accent-bronze)' : 'var(--text-muted)',
+                borderBottom: activeTab === 'scratchpad' ? '2px solid var(--accent-bronze)' : 'none',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '6px'
               }}
             >
-              <Code2 size={16} /> My Saved Scratchpad Notes
+              <Code2 size={15} /> Personal Study Scratchpad
             </button>
           </div>
 
           {/* Tab 1: Lesson Overview */}
           {activeTab === 'notes' && (
-            <div className="card" style={{ padding: '1.75rem', marginBottom: '2rem' }}>
-              <h3 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: '0.75rem' }}>
+            <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
+              <h3 style={{ fontSize: '1.3rem', fontWeight: 600, marginBottom: '0.85rem' }}>
                 Key Technical Concepts
               </h3>
-              <p style={{ color: 'var(--text-secondary)', lineHeight: 1.7, fontSize: '0.925rem', marginBottom: '1.5rem' }}>
+              <p style={{ color: 'var(--text-secondary)', lineHeight: 1.75, fontSize: '0.95rem', marginBottom: '1.75rem' }}>
                 {currentLesson.description}
               </p>
 
-              {/* Code Snippet Box with Copy Action */}
               {currentLesson.codeSnippet && (
-                <div style={{ marginBottom: '1.75rem' }}>
+                <div style={{ marginBottom: '2rem' }}>
                   <div style={{
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'center',
-                    backgroundColor: '#07090e',
+                    backgroundColor: '#0a0a0c',
                     border: '1px solid var(--border-medium)',
                     borderBottom: 'none',
                     padding: '8px 14px',
                     borderTopLeftRadius: 'var(--radius-md)',
                     borderTopRightRadius: 'var(--radius-md)',
-                    fontSize: '0.8rem',
+                    fontSize: '0.75rem',
                     color: 'var(--text-muted)',
                     fontFamily: 'var(--font-mono)'
                   }}>
-                    <span>IMPLEMENTATION SNIPPET</span>
+                    <span>ARCHITECTURE BLUEPRINT</span>
                     <button
                       onClick={handleCopyCode}
                       style={{
                         background: 'transparent',
                         border: 'none',
-                        color: copiedCode ? 'var(--accent-emerald)' : 'var(--text-secondary)',
+                        color: copiedCode ? 'var(--accent-emerald)' : 'var(--accent-bronze)',
                         cursor: 'pointer',
                         display: 'flex',
                         alignItems: 'center',
@@ -395,31 +386,30 @@ export function LessonPlayerPage() {
                         fontSize: '0.75rem'
                       }}
                     >
-                      {copiedCode ? <Check size={14} /> : <Copy size={14} />}
+                      {copiedCode ? <Check size={13} /> : <Copy size={13} />}
                       {copiedCode ? 'Copied' : 'Copy'}
                     </button>
                   </div>
                   <pre style={{
-                    backgroundColor: '#07090e',
+                    backgroundColor: '#0a0a0c',
                     border: '1px solid var(--border-medium)',
                     borderBottomLeftRadius: 'var(--radius-md)',
                     borderBottomRightRadius: 'var(--radius-md)',
-                    padding: '1rem',
+                    padding: '1.25rem',
                     overflowX: 'auto',
                     fontSize: '0.85rem',
-                    color: '#38bdf8',
-                    lineHeight: 1.5
+                    color: '#e5e3dc',
+                    lineHeight: 1.55
                   }}>
                     <code>{currentLesson.codeSnippet}</code>
                   </pre>
                 </div>
               )}
 
-              {/* Downloadable Resources */}
               {currentLesson.resources && currentLesson.resources.length > 0 && (
                 <div>
                   <h4 style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '0.75rem' }}>
-                    Downloadable Materials
+                    Reference Materials
                   </h4>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
                     {currentLesson.resources.map((res, i) => (
@@ -443,7 +433,7 @@ export function LessonPlayerPage() {
                           textDecoration: 'none'
                         }}
                       >
-                        <Download size={14} style={{ color: 'var(--accent-cyan)' }} />
+                        <Download size={14} style={{ color: 'var(--accent-bronze)' }} />
                         <span style={{ fontWeight: 600 }}>{res.title}</span>
                         <span style={{ color: 'var(--text-muted)' }}>({res.size})</span>
                       </a>
@@ -454,30 +444,30 @@ export function LessonPlayerPage() {
             </div>
           )}
 
-          {/* Tab 2: Personal Student Scratchpad */}
+          {/* Tab 2: Personal Scratchpad */}
           {activeTab === 'scratchpad' && (
-            <div className="card" style={{ padding: '1.75rem', marginBottom: '2rem' }}>
+            <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-                <h3 style={{ fontSize: '1.15rem', fontWeight: 700 }}>
-                  Personal Student Notes
+                <h3 style={{ fontSize: '1.25rem', fontWeight: 600 }}>
+                  Personal Study Log
                 </h3>
-                <span style={{ fontSize: '0.75rem', color: 'var(--accent-emerald)', fontWeight: 600 }}>
+                <span style={{ fontSize: '0.75rem', color: 'var(--accent-bronze)', fontWeight: 600 }}>
                   Auto-saved to LocalStorage
                 </span>
               </div>
-              <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '1rem' }}>
-                Jot down your observations, code snippets, or architectural thoughts. These notes persist strictly for your profile across refreshes.
+              <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '1.25rem' }}>
+                Record architectural observations or questions. These notes persist strictly for your profile.
               </p>
               <textarea
                 value={personalNotes}
                 onChange={handleNotesChange}
-                placeholder="Type your notes here for this lesson..."
+                placeholder="Record your observations for this lesson..."
                 className="input"
                 rows={10}
                 style={{
                   fontFamily: 'var(--font-mono)',
                   fontSize: '0.9rem',
-                  lineHeight: 1.6,
+                  lineHeight: 1.65,
                   resize: 'vertical'
                 }}
               />
@@ -497,13 +487,12 @@ export function LessonPlayerPage() {
             overflowY: 'auto'
           }} className="curriculum-sidebar">
             
-            {/* Sidebar Header Progress */}
-            <div style={{ padding: '1.25rem', borderBottom: '1px solid var(--border-subtle)' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', fontWeight: 700, marginBottom: '6px' }}>
-                <span>Course Progress</span>
-                <span style={{ color: 'var(--accent-cyan)' }}>{progress.percentage}%</span>
+            <div style={{ padding: '1.5rem', borderBottom: '1px solid var(--border-subtle)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', fontWeight: 600, marginBottom: '6px' }}>
+                <span>Masterclass Progress</span>
+                <span style={{ color: 'var(--accent-bronze)' }}>{progress.percentage}%</span>
               </div>
-              <div className="progress-bar-bg" style={{ height: '6px', marginBottom: '8px' }}>
+              <div className="progress-bar-bg" style={{ height: '5px', marginBottom: '8px' }}>
                 <div className="progress-bar-fill" style={{ width: `${progress.percentage}%` }} />
               </div>
               <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
@@ -511,15 +500,14 @@ export function LessonPlayerPage() {
               </div>
             </div>
 
-            {/* Curriculum Accordion in Sidebar */}
-            <div style={{ flex: 1, padding: '10px' }}>
+            <div style={{ flex: 1, padding: '12px' }}>
               {course.modules.map((module) => (
-                <div key={module.id} style={{ marginBottom: '12px' }}>
+                <div key={module.id} style={{ marginBottom: '14px' }}>
                   <div style={{
-                    fontSize: '0.8rem',
+                    fontSize: '0.75rem',
                     fontWeight: 700,
                     textTransform: 'uppercase',
-                    letterSpacing: '0.04em',
+                    letterSpacing: '0.06em',
                     color: 'var(--text-muted)',
                     padding: '6px 10px'
                   }}>
@@ -540,19 +528,19 @@ export function LessonPlayerPage() {
                             padding: '10px 12px',
                             borderRadius: 'var(--radius-sm)',
                             backgroundColor: active ? 'var(--bg-card-hover)' : 'transparent',
-                            border: active ? '1px solid var(--accent-indigo)' : '1px solid transparent',
+                            border: active ? '1px solid var(--border-accent)' : '1px solid transparent',
                             color: active ? '#ffffff' : 'var(--text-secondary)',
                             textDecoration: 'none',
                             fontSize: '0.825rem',
-                            fontWeight: active ? 700 : 500,
+                            fontWeight: active ? 600 : 400,
                             transition: 'all var(--trans-fast)'
                           }}
                         >
                           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', overflow: 'hidden' }}>
                             {done ? (
-                              <CheckCircle2 size={16} style={{ color: 'var(--accent-emerald)', flexShrink: 0 }} />
+                              <CheckCircle2 size={15} style={{ color: 'var(--accent-emerald)', flexShrink: 0 }} />
                             ) : (
-                              <Play size={14} style={{ color: active ? 'var(--accent-cyan)' : 'var(--text-muted)', flexShrink: 0 }} />
+                              <Play size={13} style={{ color: active ? 'var(--accent-bronze)' : 'var(--text-muted)', flexShrink: 0 }} />
                             )}
                             <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                               {lesson.title}
@@ -569,12 +557,11 @@ export function LessonPlayerPage() {
               ))}
             </div>
 
-            {/* Quiz Banner in Sidebar */}
             <div style={{ padding: '1.25rem', borderTop: '1px solid var(--border-subtle)', backgroundColor: 'var(--bg-tertiary)' }}>
               <Link
                 to={`/quiz/${course.id}`}
                 className="btn btn-primary btn-sm"
-                style={{ width: '100%', background: 'linear-gradient(135deg, #f59e0b, #d97706)' }}
+                style={{ width: '100%' }}
               >
                 <Award size={15} />
                 <span>Certification Exam</span>
@@ -593,7 +580,7 @@ export function LessonPlayerPage() {
           }
           .curriculum-sidebar {
             position: fixed;
-            top: 72px;
+            top: 76px;
             right: 0;
             bottom: 0;
             width: 320px;

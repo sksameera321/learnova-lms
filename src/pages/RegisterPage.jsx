@@ -39,7 +39,7 @@ export function RegisterPage() {
 
     try {
       register({ name, email, password, institution });
-      addToast('Welcome to LEARNOVA Academy! Profile initialized.', 'success');
+      addToast('Welcome to LEARNOVA! Profile created.', 'success');
       navigate('/dashboard');
     } catch (err) {
       addToast(err.message, 'error');
@@ -47,34 +47,34 @@ export function RegisterPage() {
   };
 
   return (
-    <div className="section animate-fade-in" style={{ paddingTop: '4rem', paddingBottom: '6rem' }}>
+    <div className="section animate-fade-in" style={{ paddingTop: '5rem', paddingBottom: '7rem' }}>
       <div className="container" style={{ maxWidth: '480px' }}>
         
         <div className="card" style={{ padding: '2.5rem 2rem' }}>
           
           <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
             <div style={{
-              width: '48px',
-              height: '48px',
-              borderRadius: '12px',
-              background: 'var(--grad-brand)',
+              width: '46px',
+              height: '46px',
+              borderRadius: '10px',
+              background: 'var(--bg-tertiary)',
+              border: '1px solid var(--border-accent)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              margin: '0 auto 1rem',
-              color: '#ffffff'
+              margin: '0 auto 1.25rem',
+              color: 'var(--accent-bronze)'
             }}>
-              <User size={24} />
+              <User size={22} />
             </div>
-            <h1 style={{ fontSize: '1.6rem', fontWeight: 800 }}>Create Student Account</h1>
+            <h1 style={{ fontSize: '1.85rem', fontWeight: 600 }}>Create Scholar Account</h1>
             <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem', marginTop: '4px' }}>
-              Begin your deep engineering journey with free access
+              Begin your study with access to all engineering masterclasses
             </p>
           </div>
 
           <form onSubmit={handleSubmit}>
             
-            {/* Full Name */}
             <div className="input-group">
               <label className="input-label">Full Name</label>
               <div style={{ position: 'relative' }}>
@@ -91,14 +91,13 @@ export function RegisterPage() {
               {errors.name && <div style={{ fontSize: '0.75rem', color: 'var(--accent-rose)', marginTop: '2px' }}>{errors.name}</div>}
             </div>
 
-            {/* Email Field */}
             <div className="input-group">
               <label className="input-label">Email Address</label>
               <div style={{ position: 'relative' }}>
                 <Mail size={16} style={{ position: 'absolute', left: '12px', top: '13px', color: 'var(--text-muted)' }} />
                 <input
                   type="email"
-                  placeholder="student@university.edu"
+                  placeholder="scholar@university.edu"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="input"
@@ -108,9 +107,8 @@ export function RegisterPage() {
               {errors.email && <div style={{ fontSize: '0.75rem', color: 'var(--accent-rose)', marginTop: '2px' }}>{errors.email}</div>}
             </div>
 
-            {/* Institution / College */}
             <div className="input-group">
-              <label className="input-label">University / Company (Optional)</label>
+              <label className="input-label">University / Organization (Optional)</label>
               <div style={{ position: 'relative' }}>
                 <Building size={16} style={{ position: 'absolute', left: '12px', top: '13px', color: 'var(--text-muted)' }} />
                 <input
@@ -124,7 +122,6 @@ export function RegisterPage() {
               </div>
             </div>
 
-            {/* Password Field */}
             <div className="input-group">
               <label className="input-label">Password (Min. 6 characters)</label>
               <div style={{ position: 'relative' }}>
@@ -142,7 +139,7 @@ export function RegisterPage() {
             </div>
 
             <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '1rem', padding: '0.85rem' }}>
-              <span>Complete Free Registration</span>
+              <span>Complete Registration</span>
               <ArrowRight size={16} />
             </button>
 
@@ -150,7 +147,7 @@ export function RegisterPage() {
 
           <div style={{ textAlign: 'center', marginTop: '1.75rem', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
             Already registered?{' '}
-            <Link to="/login" style={{ color: 'var(--accent-cyan)', fontWeight: 600 }}>
+            <Link to="/login" style={{ color: 'var(--accent-bronze)', fontWeight: 600 }}>
               Sign in to portal
             </Link>
           </div>
